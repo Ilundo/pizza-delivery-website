@@ -1,13 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PizzaGo — Смачна піца з доставкою</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <span>🍕 Pizza</span><span class="logo-accent">Go</span>
+            </div>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link">Головна</a>
+                <a href="#menu" class="nav-link">Меню</a>
+                <a href="#" class="nav-link">Акції</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="cart-btn" id="cartBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    <span>Кошик</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                
+                <button class="menu-toggle" id="menuToggle">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Смачна піца з доставкою</h1>
+            <p>Найкраща піца у вашому місті. Швидка доставка за 30 хвилин!</p>
+            <button class="btn-primary">Замовити</button>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <h2 class="section-title">Наше меню</h2>
+            <div class="pizza-grid" id="pizzaGrid"></div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <h3>Контакти</h3>
+                <p>📞 +380 (99) 652-77-15</p>
+                <p>📍 вул. Хрещатик, 1, Київ</p>
+            </div>
+            <div>
+                <h3>Графік роботи</h3>
+                <p>Щодня: 10:00 - 23:00</p>
+            </div>
+            <div>
+                <h3>Соцмережі</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 PizzaGo. Всі права захищені.</p>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
-    
 </body>
 </html>
