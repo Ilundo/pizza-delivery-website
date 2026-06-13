@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "title": "Маргарита",
+        "price": 149,
+        "image": "images/margarita.jpg"
+    },
+    {
+        "id": 2,
+        "title": "Пепероні",
+        "price": 179,
+        "image": "images/peperoni.jpg"
+    },
+    {
+        "id": 3,
+        "title": "М'ясна",
+        "price": 199,
+        "image": "images/meat.jpg"
+    },
+    {
+        "id": 4,
+        "title": "Вегетаріанська",
+        "price": 169,
+        "image": "images/vegan.jpg"
+    }
+]

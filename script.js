@@ -1,78 +1,111 @@
-const pizzas = [
-    {
-        id: 1,
-        name: 'Маргарита',
-        price: 149,
-        image: 'https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?crop=edges&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=1080&h=600'
-    },
-    {
-        id: 2,
-        name: 'Пепероні',
-        price: 179,
-        image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?crop=edges&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=1080&h=600'
-    },
-    {
-        id: 3,
-        name: "М'ясна",
-        price: 199,
-        image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?crop=edges&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=1080&h=600'
-    },
-    {
-        id: 4,
-        name: 'Вегетаріанська',
-        price: 169,
-        image: 'https://images.unsplash.com/photo-1544982503-9f984c14501a?crop=edges&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=1080&h=600'
-    },
-    {
-        id: 5,
-        name: 'Піца з Ананасами',
-        price: 199,
-        image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?crop=edges&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=1080&h=600'
-    },
-    {
-        id: 6,
-        name: 'Цезар',
-        price: 149,
-        image: 'https://images.unsplash.com/photo-1555072956-7758afb20e8f?crop=edges&cs=tinysrgb&fit=crop&fm=jpg&q=80&w=1080&h=600'
-    },
-];
-
-let cartCount = 0;
+let products = [];
+let cart = [];
 
 const pizzaGrid = document.getElementById('pizzaGrid');
 const cartCountBadge = document.getElementById('cartCount');
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
 
-function renderMenu() {
-    pizzas.forEach(pizza => {
-        const card = document.createElement('div');
-        card.className = 'pizza-card';
-        card.innerHTML = `
-            <img src="${pizza.image}" alt="${pizza.name}" class="pizza-img">
-            <div class="pizza-info">
-                <h3 class="pizza-name">${pizza.name}</h3>
-                <div class="pizza-footer">
-                    <span class="pizza-price">${pizza.price} грн</span>
-                    <button class="btn-add" onclick="addToCart()">В кошик</button>
-                </div>
-            </div>
-        `;
-        pizzaGrid.appendChild(card);
-    });
+function saveJsonCookie(name, data) {
+    document.cookie = `${name}=${encodeURIComponent(JSON.stringify(data))}; path=/; max-age=31536000`;
 }
 
-function addToCart() {
-    cartCount++;
-    cartCountBadge.innerText = cartCount;
-    if (cartCount > 0) {
-        cartCountBadge.style.display = 'flex';
+function getJsonCookie(name) {
+    const cookies = document.cookie.split('; ');
+
+    for (const cookie of cookies) {
+        const [cookieName, value] = cookie.split('=');
+
+        if (cookieName === name) {
+            return JSON.parse(decodeURIComponent(value));
+        }
+    }
+
+    return null;
+}
+
+async function loadProducts() {
+    try {
+        const response = await fetch('./store_db.json');
+
+        if (!response.ok) {
+            throw new Error('Ошибка загрузки товаров');
+        }
+
+        products = await response.json();
+
+        renderMenu();
+    } catch (error) {
+        console.error(error);
     }
 }
 
-const menuToggle = document.getElementById('menuToggle');
-const navMenu = document.getElementById('navMenu');
+function renderMenu() {
+    pizzaGrid.innerHTML = '';
+
+    products.forEach(product => {
+        pizzaGrid.innerHTML += `
+            <div class="pizza-card">
+                <img src="${product.image}" alt="${product.title}" class="pizza-img">
+
+                <div class="pizza-info">
+                    <h3 class="pizza-name">${product.title}</h3>
+
+                    <div class="pizza-footer">
+                        <span class="pizza-price">${product.price} грн</span>
+
+                        <button class="btn-add" onclick="addToCart(${product.id})">
+                            В кошик
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function addToCart(productId) {
+    const cartItem = cart.find(item => item.id === productId);
+
+    if (cartItem) {
+        cartItem.quantity++;
+    } else {
+        cart.push({
+            id: productId,
+            quantity: 1
+        });
+    }
+
+    saveJsonCookie('cart', cart);
+
+    updateCartCounter();
+}
+
+function updateCartCounter() {
+    const totalItems = cart.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+    );
+
+    cartCountBadge.textContent = totalItems;
+
+    if (totalItems > 0) {
+        cartCountBadge.style.display = 'flex';
+    } else {
+        cartCountBadge.style.display = 'none';
+    }
+}
 
 menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
 
-renderMenu();
+function init() {
+    cart = getJsonCookie('cart') || [];
+
+    updateCartCounter();
+
+    loadProducts();
+}
+
+init();
