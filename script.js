@@ -89,10 +89,8 @@ function updateCartCounter() {
 
     cartCountBadge.textContent = totalItems;
 
-    if (totalItems > 0) {
-        cartCountBadge.style.display = 'flex';
-    } else {
-        cartCountBadge.style.display = 'none';
+    if (cartCountBadge) {
+        cartCountBadge.style.display = totalItems > 0 ? 'flex' : 'none';
     }
 }
 

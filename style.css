@@ -275,3 +275,20 @@ body {
         font-size: 32px;
     }
 }
+.nav-menu.active {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        width: 100%;
+        background: #DC2626;
+        padding: 20px;
+        z-index: 100;
+    }
+}
