@@ -2,37 +2,32 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кошик - PizzaGo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header class="header">
     <div class="container header-container">
-
         <div class="logo">
             <span>🍕 Pizza</span><span class="logo-accent">Go</span>
         </div>
-
         <a href="index.html" class="nav-link">← Назад</a>
-
     </div>
 </header>
 
 <section class="menu-section">
     <div class="container">
-
         <h2 class="section-title">Ваш кошик</h2>
-
-        <div id="cartItems"></div>
-
-        <h2 id="cartTotal">Всього: 0 грн</h2>
-
-        <button onclick="clearCart()" class="btn-add">
-            Очистити кошик
-        </button>
-
+        <div class="pizza-grid" id="cartItems"></div>
+        <div style="margin-top: 40px; text-align: left;">
+            <h2 id="cartTotal" style="margin-bottom: 16px; font-family: 'Poppins', sans-serif;">Всього: 0 грн</h2>
+            <button onclick="clearCart()" class="btn-add">Очистити кошик</button>
+        </div>
     </div>
 </section>
 
